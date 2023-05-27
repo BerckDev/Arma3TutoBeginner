@@ -1,4 +1,6 @@
-params ["_side", "_sideLetter", "_tag", "_grpType", "_hasVehicle", "_posSpawn", "_dirSpawn", ["_nbUnit", 8], ["_crew", objNull], ["_veh", objNull]];
+params ["_side", "_tag", "_grpType", "_hasVehicle", "_posSpawn", "_dirSpawn", ["_nbUnit", 8], ["_crew", objNull], ["_veh", objNull]];
+
+private _sideLetter = [_side] call fn_returnSideLetter;
 
 // On crée le groupe
 if (isNull _crew) then {
