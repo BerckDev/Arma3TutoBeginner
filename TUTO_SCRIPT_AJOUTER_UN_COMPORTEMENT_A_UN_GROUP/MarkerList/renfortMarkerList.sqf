@@ -30,11 +30,10 @@ _wpUnloadPC setWaypointType "UNLOAD";
 if (alive _leader) then {
 	if (_join) then {
 		{
-			[_x] joinsilent grpNull;
 			[_x] joinsilent _leader;
 		} foreach units _crew;
 	} else {
-		leader _crew doFollow leader _leader;
+		leader _crew doFollow _leader;
 	};
 } else {
 	_wpGuardPC = _crew addWaypoint[_posRenfort, 0];
