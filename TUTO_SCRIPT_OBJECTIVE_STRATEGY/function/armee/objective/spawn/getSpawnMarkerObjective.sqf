@@ -10,7 +10,7 @@ private _spawnMarkerSelect = "";
 	private _marker = _x select 3;
 	private _markerSpawn = _x select 4;
 	private _conquis = _x select 5;
-	private _isSideOrigin = _x select 6;
+	private _isOwnerOrigin = _x select 6;
 
 	if (_side == _sideOwner and _conquis) then {
 		_spawnMarkerSelect = _markerSpawn;

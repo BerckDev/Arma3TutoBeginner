@@ -2,7 +2,7 @@ params ["_crew", "_strategyType"];
 
 [_crew] call fn_deleteAllWaypoint;
 
-if (isNull _crew) then {
+if (isNull _crew and debug) then {
 	systemChat format ["objectiveStrategy Crew null %1", groupId(_crew)];
 };
 
@@ -23,7 +23,6 @@ _nextMarker = [_crew, _conquete] call fn_getNextObjective;
 
 _leader = (leader _crew);
 _leader setVariable ["NextMarker", _nextMarker];
-private _nextMarkerList = [];
 
 if (debug) then {
 	systemChat format ["NextObjective %1, %2, %3", (groupId _crew), _nextMarker, _strategyType];
@@ -41,6 +40,7 @@ if (_nbVehs > 0) then {
 	} forEach units _crew;
 	if (_mustLoad and !(_veh isKindOf "Tank")) then {
 
+		systemChat format ["Je creee WP LOAD"];
 		_wpLoad = _crew addWaypoint[_crewPosition, 0];
 		_wpLoad setWaypointType "LOAD";
 		_wpLoad setWaypointSpeed "FULL";
@@ -51,9 +51,17 @@ if (_nbVehs > 0) then {
 	};
 };
 
+systemChat format ["Je creee WP deplacement %1", _nextMarker];
+_wp = _crew addWaypoint[getMarkerPos _nextMarker, 0];
+_wp setWaypointType "MOVE";
+_wp setWaypointSpeed "FULL";
+_wp setWaypointFormation "STAG COLUMN";
+_wp setWaypointBehaviour "SAFE";
+
 // Puis la tâche principale
 if (_strategyType == "ASSAUT") then {
 
+	systemChat format ["Je creee WP ASSAUT %1", _nextMarker];
 	_wp = _crew addWaypoint[getMarkerPos _nextMarker, 0];
 	_wp setWaypointType "SAD";
 	_wp setWaypointSpeed "FULL";
@@ -64,6 +72,7 @@ if (_strategyType == "ASSAUT") then {
 
 if (_strategyType == "DEFENSE") then {
 
+	systemChat format ["Je creee WP Defense %1", _nextMarker];
 	_wp = _crew addWaypoint[getMarkerPos _nextMarker, 0];
 	_wp setWaypointType "MOVE";
 	_wp setWaypointSpeed "LIMITED";
@@ -74,6 +83,7 @@ if (_strategyType == "DEFENSE") then {
 
 if (_strategyType == "SUPPORT") then {
 
+	systemChat format ["Je creee WP Support %1", _nextMarker];
 	_wpMovePC = _crew addWaypoint[getMarkerPos _nextMarker, 0];
 	_wpMovePC setWaypointType "SUPPORT";
 	_wpMovePC setWaypointSpeed "FULL";
@@ -84,6 +94,7 @@ if (_strategyType == "SUPPORT") then {
 
 if (_strategyType == "GUARD") then {
 
+	systemChat format ["Je creee WP Guard %1", _nextMarker];
 	_wpMovePC = _crew addWaypoint[getMarkerPos _nextMarker, 0];
 	_wpMovePC setWaypointType "GUARD";
 	_wpMovePC setWaypointSpeed "FULL";
@@ -98,6 +109,7 @@ if (_nbVehs > 0) then {
 
 	if (!(_veh isKindOf "Tank")) then {
 
+	systemChat format ["Je creee WP UNLOAD"];
 		_wpUnLoad = _crew addWaypoint[getMarkerPos _nextMarker, 0];
 		_wpUnLoad setWaypointType "UNLOAD";
 		_wpUnLoad setWaypointSpeed "FULL";
@@ -107,9 +119,8 @@ if (_nbVehs > 0) then {
 	};
 };
 
-
 // On récupère le nouvel objectif
-
+systemChat format ["Je creee WP Script %1", _nextMarker];
 _wp = _crew addWaypoint[getMarkerPos _nextMarker, 0];
 _wp setWaypointType "SCRIPTED";
 _wp setWaypointScript 'scripts\Waypoint\objective\getNextObjective.sqf'; 
@@ -123,6 +134,7 @@ _sauv = false;
 } forEach ArrayGroupObjective;
 
 if (!_sauv) then {
+systemChat format ["J ajoute le grp"];
 	ArrayGroupObjective pushBack [_crew, _strategyType];
 };
 

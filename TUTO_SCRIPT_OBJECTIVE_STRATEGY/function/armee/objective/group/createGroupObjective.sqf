@@ -3,6 +3,8 @@ params ["_side", "_tag", "_grpType", "_hasVehicle", ["_nbUnit", 8], ["_crew", ob
 // On récupère la première position
 if (_spawnMarker == "") then {
 	_spawnMarker = [_side] call fn_getSpawnMarkerObjective;
+} else {
+	_spawnMarker = [_side] call fn_getSpawnSide;
 };
 
 _posSpawn = getMarkerPos _spawnMarker;

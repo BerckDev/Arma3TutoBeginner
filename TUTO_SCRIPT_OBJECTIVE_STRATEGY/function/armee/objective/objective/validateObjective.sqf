@@ -8,7 +8,7 @@ params ["_side", "_tag"];
 	private _marker = _x select 3;
 	private _markerSpawn = _x select 4;
 	private _conquis = _x select 5;
-	private _isSideOrigin = _x select 6;
+	private _isOwnerOrigin = _x select 6;
 
 	if (_tagX == _tag) then {
 
@@ -17,30 +17,30 @@ params ["_side", "_tag"];
 
 			if (_side == EAST and _marker != "") then {
 				_marker setmarkercolor "colorred";
-				red_chef_etat_major globalChat format ["%1 est à %2 !", _tag, _side];
+				[EAST, "Base"] commandChat format ["%1 est à %2 !", _tag, _side];
 			};
 			if (_side == WEST and _marker != "") then {
 				_marker setmarkercolor "colorblue";
-				blue_chef_etat_major globalChat format ["%1 est à %2 !", _tag, _side];
+				[WEST, "Base"] commandChat format ["%1 est à %2 !", _tag, _side];
 			};
 			if (_side == INDEPENDENT and _marker != "") then {
 				_marker setmarkercolor "colorgreen";
-				green_chef_etat_major globalChat format ["%1 est à %2 !", _tag, _side];
+				[INDEPENDENT, "Base"] commandChat format ["%1 est à %2 !", _tag, _side];
 			};
 			if (_side == CIVILIAN and _marker != "") then {
 				_marker setmarkercolor "colorblack";
 			};
 		} else {
 			_x set [5, false];
-			if (_isSideOrigin) then {
+			if (_isOwnerOrigin) then {
 				if (_side == EAST and _marker != "") then {
-					red_chef_etat_major globalChat format ["%1 est perdu par %2!", _tag, _side];
+					[EAST, "Base"] commandChat format ["%1 est perdu par %2!", _tag, _side];
 				};
 				if (_side == WEST and _marker != "") then {
-					blue_chef_etat_major globalChat format ["%1 est perdu par %2!", _tag, _side];
+					[WEST, "Base"] commandChat format ["%1 est perdu par %2!", _tag, _side];
 				};
 				if (_side == INDEPENDENT and _marker != "") then {
-					green_chef_etat_major globalChat format ["%1 est perdu par %2!", _tag, _side];
+					[INDEPENDENT, "Base"] commandChat format ["%1 est perdu par %2!", _tag, _side];
 				};
 			};
 		};

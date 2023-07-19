@@ -6,9 +6,6 @@ private _nextObjectif = "";
 private _nextMarker = "";
 private _side = side _crew;
 
-private _crewPosition = position (leader _crew);
-private _vehs = [_crew, true] call BIS_fnc_groupVehicles;
-
 // ASC Comme chaque camp à sa propre incrementation pas besoin de reverse
 {
 	private _weight = _x select 0;
@@ -17,7 +14,7 @@ private _vehs = [_crew, true] call BIS_fnc_groupVehicles;
 	private _marker = _x select 3;
 	private _markerSpawn = _x select 4;
 	private _conquis = _x select 5;
-	private _isSideOrigin = _x select 6;
+	private _isOwnerOrigin = _x select 6;
 
 	if (_conquete and _side == _sideOwner and !_conquis) then {
 		_nextObjectif = _tag;
